@@ -2,12 +2,12 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Diary Elsi 💌</title>
+  <title>Diary Elsi</title>
 
   <style>
     body {
-      font-family: Arial;
-      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      font-family: Arial, sans-serif;
+      background-color: #fef6f9;
       text-align: center;
       padding: 30px;
     }
@@ -15,14 +15,14 @@
     .card {
       background: white;
       padding: 20px;
-      border-radius: 20px;
+      border-radius: 15px;
       max-width: 500px;
       margin: auto;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
     h1 {
-      color: #ff4d88;
+      color: #ff6b9d;
     }
 
     textarea {
@@ -37,20 +37,17 @@
       margin-top: 10px;
       padding: 10px 20px;
       border: none;
-      background: #ff4d88;
+      background: #ff6b9d;
       color: white;
       border-radius: 10px;
       cursor: pointer;
-    }
-
-    button:hover {
-      background: #e6005c;
     }
 
     .hasil p {
       background: #ffe6f0;
       padding: 10px;
       border-radius: 10px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -59,7 +56,7 @@
 
   <div class="card">
     <h1>💌 Diary Elsi</h1>
-    <p>Tempat overthinking terbaik 😭</p>
+    <p>Tulis curhatan kamu di sini 😭</p>
 
     <textarea id="curhat"></textarea><br>
 
@@ -88,12 +85,7 @@
       let tanggal = new Date().toLocaleString();
       let hasil = document.getElementById("hasil");
 
-      let newData = `
-        <p>
-          📝 <b>${tanggal}</b><br>
-          ${isi}
-        </p>
-      `;
+      let newData = "<p>📝 [" + tanggal + "]<br>" + isi + "</p>";
 
       hasil.innerHTML += newData;
 
