@@ -1,5 +1,5 @@
 <script>
-  // Ambil data dari localStorage saat halaman dibuka
+  // Ambil data saat halaman dibuka
   window.onload = function() {
     let data = localStorage.getItem("curhatElsi");
     if (data) {
@@ -16,14 +16,18 @@
       return;
     }
 
-    let newData = "<p>📝 " + isi + "</p>";
-    
-    // Tampilkan ke layar
+    let tanggal = new Date().toLocaleString();
+    let newData = "<p>📝 [" + tanggal + "] " + isi + "</p>";
+
     hasil.innerHTML += newData;
 
-    // Simpan ke localStorage
     localStorage.setItem("curhatElsi", hasil.innerHTML);
 
     document.getElementById("curhat").value = "";
+  }
+
+  function hapus() {
+    localStorage.removeItem("curhatElsi");
+    document.getElementById("hasil").innerHTML = "";
   }
 </script>
