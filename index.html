@@ -1,18 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Diary Elsi 💌</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      text-align: center;
+      padding: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #ff4d88;
+    }
+
+    textarea {
+      width: 90%;
+      height: 100px;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #ff4d88;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #e6005c;
+    }
+
+    .hasil p {
+      background: #ffe6f0;
+      padding: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
 <body>
 
-<textarea id="curhat"></textarea>
-<button onclick="kirim()">Simpan</button>
+  <div class="card">
+    <h1>💌 Diary Elsi</h1>
+    <p>Tempat overthinking terbaik 😭</p>
 
-<div id="hasil"></div>
+    <textarea id="curhat"></textarea><br>
 
-<script>
-function kirim() {
-  let isi = document.getElementById("curhat").value;
-  document.getElementById("hasil").innerHTML += "<p>" + isi + "</p>";
-}
-</script>
+    <button onclick="kirim()">Simpan</button>
+    <button onclick="hapus()">Hapus Semua</button>
+
+    <div class="hasil" id="hasil"></div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      let data = localStorage.getItem("curhatElsi");
+      if (data) {
+        document.getElementById("hasil").innerHTML = data;
+      }
+    };
+
+    function kirim() {
+      let isi = document.getElementById("curhat").value;
+
+      if (isi.trim() === "") {
+        alert("Jangan kosong 😭");
+        return;
+      }
+
+      let tanggal = new Date().toLocaleString();
+      let hasil = document.getElementById("hasil");
+
+      let newData = `
+        <p>
+          📝 <b>${tanggal}</b><br>
+          ${isi}
+        </p>
+      `;
+
+      hasil.innerHTML += newData;
+
+      localStorage.setItem("curhatElsi", hasil.innerHTML);
+
+      document.getElementById("curhat").value = "";
+    }
+
+    function hapus() {
+      localStorage.removeItem("curhatElsi");
+      document.getElementById("hasil").innerHTML = "";
+    }
+  </script>
 
 </body>
 </html>
