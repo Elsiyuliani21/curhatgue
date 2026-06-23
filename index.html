@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Diary Elsi</title>
-</head>
+<html>
 <body>
 
-<h1>TEST DULU</h1>
+<textarea id="curhat"></textarea>
+<button onclick="kirim()">Simpan</button>
+
+<div id="hasil"></div>
+
+<script>
+function kirim() {
+  let isi = document.getElementById("curhat").value;
+  document.getElementById("hasil").innerHTML += "<p>" + isi + "</p>";
+}
+</script>
 
 </body>
 </html>
