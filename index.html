@@ -2,14 +2,20 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Diary Elsi</title>
+  <title>Diary Elsi 💌</title>
 
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fef6f9;
+      font-family: Arial;
+      background: #fef6f9;
       text-align: center;
       padding: 30px;
+      transition: 0.3s;
+    }
+
+    .dark {
+      background: #1e1e1e;
+      color: white;
     }
 
     .card {
@@ -18,87 +24,119 @@
       border-radius: 15px;
       max-width: 500px;
       margin: auto;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
-    h1 {
-      color: #ff6b9d;
+    .dark .card {
+      background: #2c2c2c;
     }
 
     textarea {
       width: 90%;
-      height: 100px;
-      border-radius: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
+      height: 80px;
     }
 
     button {
-      margin-top: 10px;
-      padding: 10px 20px;
+      margin: 5px;
+      padding: 8px 15px;
       border: none;
-      background: #ff6b9d;
-      color: white;
-      border-radius: 10px;
+      border-radius: 8px;
+      background: pink;
       cursor: pointer;
     }
 
-    .hasil p {
+    .item {
       background: #ffe6f0;
+      margin-top: 10px;
       padding: 10px;
       border-radius: 10px;
-      margin-top: 10px;
+    }
+
+    .dark .item {
+      background: #444;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>💌 Diary Elsi</h1>
-    <p>Tulis curhatan kamu di sini 😭</p>
+<div class="card">
+  <h1>💌 Diary Elsi</h1>
 
-    <textarea id="curhat"></textarea><br>
+  <textarea id="curhat"></textarea><br>
 
-    <button onclick="kirim()">Simpan</button>
-    <button onclick="hapus()">Hapus Semua</button>
+  <button onclick="tambah()">Simpan</button>
+  <button onclick="hapusSemua()">Hapus Semua</button>
+  <button onclick="darkMode()">🌙 Dark Mode</button>
 
-    <div class="hasil" id="hasil"></div>
-  </div>
+  <div id="list"></div>
+</div>
 
-  <script>
-    window.onload = function() {
-      let data = localStorage.getItem("curhatElsi");
-      if (data) {
-        document.getElementById("hasil").innerHTML = data;
-      }
-    };
+<script>
+let data = JSON.parse(localStorage.getItem("diaryElsi")) || [];
 
-    function kirim() {
-      let isi = document.getElementById("curhat").value;
+function tampil() {
+  let list = document.getElementById("list");
+  list.innerHTML = "";
 
-      if (isi.trim() === "") {
-        alert("Jangan kosong 😭");
-        return;
-      }
+  data.forEach((item, index) => {
+    list.innerHTML += `
+      <div class="item">
+        <b>${item.tanggal}</b><br>
+        ${item.text}<br><br>
 
-      let tanggal = new Date().toLocaleString();
-      let hasil = document.getElementById("hasil");
+        <button onclick="edit(${index})">✏️ Edit</button>
+        <button onclick="hapus(${index})">❌ Hapus</button>
+      </div>
+    `;
+  });
 
-      let newData = "<p>📝 [" + tanggal + "]<br>" + isi + "</p>";
+  localStorage.setItem("diaryElsi", JSON.stringify(data));
+}
 
-      hasil.innerHTML += newData;
+function tambah() {
+  let isi = document.getElementById("curhat").value;
 
-      localStorage.setItem("curhatElsi", hasil.innerHTML);
+  if (isi.trim() === "") {
+    alert("Jangan kosong 😭");
+    return;
+  }
 
-      document.getElementById("curhat").value = "";
-    }
+  let tanggal = new Date().toLocaleString();
 
-    function hapus() {
-      localStorage.removeItem("curhatElsi");
-      document.getElementById("hasil").innerHTML = "";
-    }
-  </script>
+  data.push({
+    text: isi,
+    tanggal: tanggal
+  });
+
+  document.getElementById("curhat").value = "";
+  tampil();
+}
+
+function hapus(index) {
+  data.splice(index, 1);
+  tampil();
+}
+
+function hapusSemua() {
+  data = [];
+  tampil();
+}
+
+function edit(index) {
+  let baru = prompt("Edit curhatan:", data[index].text);
+  if (baru !== null) {
+    data[index].text = baru;
+    tampil();
+  }
+}
+
+function darkMode() {
+  document.body.classList.toggle("dark");
+}
+
+// load awal
+tampil();
+</script>
 
 </body>
 </html>
