@@ -3,96 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Diary Elsi</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fef6f9;
-      text-align: center;
-      padding: 30px;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    h1 {
-      color: #ff6b9d;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      padding: 10px;
-    }
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      border: none;
-      background: #ff6b9d;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .hasil {
-      margin-top: 20px;
-      text-align: left;
-    }
-  </style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>💌 Diary Elsi</h1>
-    <p>Tulis apa yang kamu rasain hari ini...</p>
-
-    <!-- INPUT -->
-    <textarea id="curhat"></textarea><br>
-
-    <!-- BUTTON -->
-    <button onclick="kirim()">Simpan</button>
-    <button onclick="hapus()">Hapus Semua</button>
-
-    <!-- HASIL -->
-    <div class="hasil" id="hasil"></div>
-  </div>
-
-  <script>
-    // Load data saat buka web
-    window.onload = function() {
-      let data = localStorage.getItem("curhatElsi");
-      if (data) {
-        document.getElementById("hasil").innerHTML = data;
-      }
-    };
-
-    function kirim() {
-      let isi = document.getElementById("curhat").value;
-      let hasil = document.getElementById("hasil");
-
-      if (isi.trim() === "") {
-        alert("Jangan kosong dong 😭");
-        return;
-      }
-
-      let tanggal = new Date().toLocaleString();
-      let newData = "<p>📝 [" + tanggal + "] " + isi + "</p>";
-
-      hasil.innerHTML += newData;
-
-      localStorage.setItem("curhatElsi", hasil.innerHTML);
-
-      document.getElementById("curhat").value = "";
-    }
-
-    function hapus() {
-      localStorage.removeItem("curhatElsi");
-      document.getElementById("hasil").innerHTML = "";
-    }
-  </script>
+<h1>TEST DULU</h1>
 
 </body>
 </html>
